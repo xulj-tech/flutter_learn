@@ -7,6 +7,8 @@ import 'package:flutter_learn/hy/model/login_entity.dart';
 import 'package:flutter_learn/generated/json/login_entity_helper.dart';
 import 'package:flutter_learn/hy/model/relation_entity.dart';
 import 'package:flutter_learn/generated/json/relation_entity_helper.dart';
+import 'package:flutter_learn/hy/model/logout_entity.dart';
+import 'package:flutter_learn/generated/json/logout_entity_helper.dart';
 import 'package:flutter_learn/hy/model/server_set_entity.dart';
 import 'package:flutter_learn/generated/json/server_set_entity_helper.dart';
 import 'package:flutter_learn/model/home_entity.dart';
@@ -32,7 +34,11 @@ class JsonConvert<T> {
 			return relationEntityFromJson(data as RelationEntity, json) as T;			case RelationData:
 			return relationDataFromJson(data as RelationData, json) as T;			case RelationDataAC:
 			return relationDataACFromJson(data as RelationDataAC, json) as T;			case RelationDataACsV:
-			return relationDataACsVFromJson(data as RelationDataACsV, json) as T;			case ServerSetEntity:
+			return relationDataACsVFromJson(data as RelationDataACsV, json) as T;			case LogoutEntity:
+			return logoutEntityFromJson(data as LogoutEntity, json) as T;			case LogoutData:
+			return logoutDataFromJson(data as LogoutData, json) as T;			case LogoutDataAC:
+			return logoutDataACFromJson(data as LogoutDataAC, json) as T;			case LogoutDataACsV:
+			return logoutDataACsVFromJson(data as LogoutDataACsV, json) as T;			case ServerSetEntity:
 			return serverSetEntityFromJson(data as ServerSetEntity, json) as T;			case ServerSetData:
 			return serverSetDataFromJson(data as ServerSetData, json) as T;			case ServerSetDataAC:
 			return serverSetDataACFromJson(data as ServerSetDataAC, json) as T;			case ServerSetDataACsV:
@@ -54,7 +60,11 @@ class JsonConvert<T> {
 			return relationEntityToJson(data as RelationEntity);			case RelationData:
 			return relationDataToJson(data as RelationData);			case RelationDataAC:
 			return relationDataACToJson(data as RelationDataAC);			case RelationDataACsV:
-			return relationDataACsVToJson(data as RelationDataACsV);			case ServerSetEntity:
+			return relationDataACsVToJson(data as RelationDataACsV);			case LogoutEntity:
+			return logoutEntityToJson(data as LogoutEntity);			case LogoutData:
+			return logoutDataToJson(data as LogoutData);			case LogoutDataAC:
+			return logoutDataACToJson(data as LogoutDataAC);			case LogoutDataACsV:
+			return logoutDataACsVToJson(data as LogoutDataACsV);			case ServerSetEntity:
 			return serverSetEntityToJson(data as ServerSetEntity);			case ServerSetData:
 			return serverSetDataToJson(data as ServerSetData);			case ServerSetDataAC:
 			return serverSetDataACToJson(data as ServerSetDataAC);			case ServerSetDataACsV:
@@ -76,7 +86,11 @@ class JsonConvert<T> {
 			return RelationEntity().fromJson(json);			case 'RelationData':
 			return RelationData().fromJson(json);			case 'RelationDataAC':
 			return RelationDataAC().fromJson(json);			case 'RelationDataACsV':
-			return RelationDataACsV().fromJson(json);			case 'ServerSetEntity':
+			return RelationDataACsV().fromJson(json);			case 'LogoutEntity':
+			return LogoutEntity().fromJson(json);			case 'LogoutData':
+			return LogoutData().fromJson(json);			case 'LogoutDataAC':
+			return LogoutDataAC().fromJson(json);			case 'LogoutDataACsV':
+			return LogoutDataACsV().fromJson(json);			case 'ServerSetEntity':
 			return ServerSetEntity().fromJson(json);			case 'ServerSetData':
 			return ServerSetData().fromJson(json);			case 'ServerSetDataAC':
 			return ServerSetDataAC().fromJson(json);			case 'ServerSetDataACsV':
@@ -99,7 +113,11 @@ class JsonConvert<T> {
 			return List<RelationEntity>();			case 'RelationData':
 			return List<RelationData>();			case 'RelationDataAC':
 			return List<RelationDataAC>();			case 'RelationDataACsV':
-			return List<RelationDataACsV>();			case 'ServerSetEntity':
+			return List<RelationDataACsV>();			case 'LogoutEntity':
+			return List<LogoutEntity>();			case 'LogoutData':
+			return List<LogoutData>();			case 'LogoutDataAC':
+			return List<LogoutDataAC>();			case 'LogoutDataACsV':
+			return List<LogoutDataACsV>();			case 'ServerSetEntity':
 			return List<ServerSetEntity>();			case 'ServerSetData':
 			return List<ServerSetData>();			case 'ServerSetDataAC':
 			return List<ServerSetDataAC>();			case 'ServerSetDataACsV':

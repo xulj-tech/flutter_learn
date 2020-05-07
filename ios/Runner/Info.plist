@@ -4,10 +4,17 @@
 <dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
-	<key>io.flutter.embedded_views_preview</key>
-	<true/>
 	<key>CFBundleDisplayName</key>
 	<string>云中云</string>
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <true/>
+    </dict>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

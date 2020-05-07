@@ -1,9 +1,11 @@
 
+import 'package:flutter_learn/generated/json/logout_entity_helper.dart';
 import 'package:flutter_learn/generated/json/server_set_entity_helper.dart';
 import 'package:flutter_learn/generated/json/login_entity_helper.dart';
 import 'package:flutter_learn/generated/json/relation_entity_helper.dart';
 import 'package:flutter_learn/hy/api/api.dart';
 import 'package:flutter_learn/hy/model/login_entity.dart';
+import 'package:flutter_learn/hy/model/logout_entity.dart';
 import 'package:flutter_learn/hy/model/relation_entity.dart';
 import 'package:flutter_learn/hy/model/server_set_entity.dart';
 import 'package:flutter_learn/hy/utils/util.dart';
@@ -94,7 +96,7 @@ class CommonService {
     LoginEntity loginEntity = LoginEntity();
     loginEntityFromJson(loginEntity, response);
     if (loginEntity.isSuccess) {
-      token=loginEntity.data.aCs[0].v.refreshToken;
+      token=loginEntity.data.aCs[0].v.accessToken;
       user="${loginEntity.data.aCs[1].v.id};$token";
       print("user---$user");
       onSuccess(loginEntity);
@@ -137,11 +139,53 @@ class CommonService {
     if (relationEntity.isSuccess) {
       var entity=relationEntity.data.aCs[0].v[0];
       webUrl = "http://${entity.destIp}:${entity.destPort}${entity.destUrl}&pageName=${entity.destProviderFc}&data={}&tokenId=$token";
-      onSuccess(webUrl);
+      //onSuccess(webUrl);
       return webUrl;
     }else {
       onError(relationEntity.exceptionMsg);
     }
     return webUrl;
   }
+
+
+  static Future<LogoutEntity> logout({Function(LogoutEntity t) onSuccess,
+        Function(String error) onError}) async {
+
+    Map<String, dynamic> map = {
+      "tokenId": token,
+    };
+
+    Map<String, dynamic> p1 = {
+      "F": "p1",
+      "N": "",
+      "V": map,
+      "Op": 0,
+    };
+
+    Map<String, dynamic> data = {
+      "SrcID": "3b3754f1546d5d4a",
+      "DestID": destID,
+      "SN": uuid,
+      "User": user,
+      "FC": Api.FC_XT_VEFY_CANCEL_0001,
+      "Ack": "0",
+      "Exp": "p1",
+      "Dep": "",
+      "Ord":"",
+      "ACs": [p1],
+    };
+
+    var response = await ApiRequest.request(Api.URL_LOGOUT, method: "POST", data: data);
+    LogoutEntity logoutEntity = LogoutEntity();
+    logoutEntityFromJson(logoutEntity, response);
+    if (logoutEntity.isSuccess) {
+      onSuccess(logoutEntity);
+    }else {
+      onError(logoutEntity.exceptionMsg);
+    }
+    return logoutEntity;
+  }
+
+
+
 }

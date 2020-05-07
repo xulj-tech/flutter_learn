@@ -91,12 +91,11 @@ class HomeMenuItem extends StatelessWidget {
       onTap: () {
         switch(_index){
           case 2:
-            CommonService.getWebUrl(Api.FC_WEB_GZLC_RK_0001,onSuccess: (url){
-              if(url.isNotEmpty){
-                Navigator.of(context).pushNamed(WebViewPage.routeName,arguments: url);
-              }
-            });
+            Navigator.of(context).pushNamed(WebViewPage.routeName);
+            break;
 
+          case 8:
+            Util.showLogoutDialog(context, "您确认退出吗？");
             break;
           default:
             break;

@@ -44,6 +44,32 @@ class Util {
     );
   }
 
+  static showLogoutDialog(BuildContext ctx, String message) {
+    showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text('提示'),
+          content: new Text(message),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("确定"),
+              onPressed: () {
+                CommonService.logout(onSuccess: (value){
+                  Navigator.of(context).pop();
+                }, onError: (error){
+                  showToast(error);
+                }
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static String getUUID() {
     String alphabet = '0123456789abcdef';
     int length = 32;
