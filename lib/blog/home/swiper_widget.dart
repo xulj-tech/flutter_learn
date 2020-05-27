@@ -1,4 +1,4 @@
-import 'package:flutter_learn/model/banner_entity.dart';
+import 'package:flutter_learn/blog/model/banner_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 

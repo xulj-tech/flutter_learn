@@ -55,12 +55,23 @@ class ApiRequest {
 
     Response<Map<String, dynamic>> response;
 
-    try {
-      response = await dio.post(url, queryParameters: params, data:data,options: options);
-      return response.data;
-    } on DioError catch (e) {
-      return Future.error(e);
+    if (method == 'POST' || method == 'post') {
+      try {
+        response = await dio.post(url, queryParameters: params, data:data,options: options);
+        return response.data;
+      } on DioError catch (e) {
+        return Future.error(e);
+      }
+    } else {
+      try {
+        response = await dio.get(url, queryParameters: params, options: options);
+        return response.data;
+      } on DioError catch (e) {
+        return Future.error(e);
+      }
     }
+
+
   }
 
 

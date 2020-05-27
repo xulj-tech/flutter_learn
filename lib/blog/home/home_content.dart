@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learn/model/home_entity.dart';
-import 'package:flutter_learn/home/home_list_item.dart';
-import 'package:flutter_learn/home/swiper_widget.dart';
-import 'package:flutter_learn/model/banner_entity.dart';
-import 'package:flutter_learn/net/home_request.dart';
+import 'package:flutter_learn/blog/model/home_entity.dart';
+import 'package:flutter_learn/blog/home/home_list_item.dart';
+import 'package:flutter_learn/blog/home/swiper_widget.dart';
+import 'package:flutter_learn/blog/model/banner_entity.dart';
+import 'package:flutter_learn/blog/net/home_request.dart';
 
 class HomePage extends StatelessWidget {
   @override

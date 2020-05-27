@@ -1,11 +1,15 @@
-import 'package:flutter_learn/hy/api/api.dart';
-import 'package:flutter_learn/hy/api/common_service.dart';
+import 'package:flutter_learn/hy/pages/iot_page.dart';
+import 'package:flutter_learn/hy/pages/knowledge_page.dart';
+import 'package:flutter_learn/hy/pages/person_page.dart';
+import 'package:flutter_learn/hy/pages/setting_page.dart';
 import 'package:flutter_learn/hy/pages/webview_page.dart';
 import 'package:flutter_learn/hy/utils/GlobalConfig.dart';
 import 'package:flutter_learn/hy/utils/util.dart';
 import 'package:flutter_learn/hy/widget/banner_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn/utils/size_extension.dart';
+import 'package:flutter_learn/hy/utils/size_fit.dart';
+
+import 'alarm_page.dart';
 
 class HomePage extends StatelessWidget{
   static const routeName="/homePage";
@@ -17,6 +21,7 @@ class HomePage extends StatelessWidget{
        children: <Widget>[
          BannerContent(),
          MessageContent(),
+         Container(height: 12, color: Colors.grey[300],),
          Expanded(
             child: HomeContent(),
         )
@@ -53,12 +58,12 @@ class HomeContent extends StatelessWidget {
         final images = snapshot.data;
         final names=Util.getMenuName();
         return GridView.builder(
-            padding: EdgeInsets.all(20.px),
+            padding: EdgeInsets.all(ScreenUtil.px(20)),
             itemCount: images.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 20.px,
-                mainAxisSpacing: 20.px,
+                crossAxisSpacing: ScreenUtil.px(20),
+                mainAxisSpacing: ScreenUtil.px(20),
                 childAspectRatio: 1
             ),
             itemBuilder: (ctx, index) {
@@ -83,19 +88,30 @@ class HomeMenuItem extends StatelessWidget {
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
-            Image(image: AssetImage("assets/images/$_image"),width: 60.px,height: 60.px,),
-              Text(_name, style:TextStyle(color:GlobalConfig.color_font,fontSize: 15)),
+              Image(image: AssetImage("assets/images/$_image"),width: ScreenUtil.px(60),height: ScreenUtil.px(60),),
+              Text(_name, style:TextStyle(color:GlobalConfig.colorFont,fontSize: 15)),
             ],
           )
       ),
       onTap: () {
         switch(_index){
+          case 0:
+            Navigator.of(context).pushNamed(IotControlPage.routeName);
+            break;
+          case 1:
+            Navigator.of(context).pushNamed(AlarmPage.routeName);
+            break;
           case 2:
             Navigator.of(context).pushNamed(WebViewPage.routeName);
             break;
-
+          case 6:
+            Navigator.of(context).pushNamed(KnowledgePage.routeName);
+            break;
+          case 7:
+            Navigator.of(context).pushNamed(PersonPage.routeName);
+            break;
           case 8:
-            Util.showLogoutDialog(context, "您确认退出吗？");
+            Navigator.of(context).pushNamed(SettingPage.routeName);
             break;
           default:
             break;
@@ -111,18 +127,18 @@ class MessageContent extends StatelessWidget{
     return Flex(
       direction: Axis.horizontal,
       children: <Widget>[
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            height: 30.0,
-            child: Text("公告",style: TextStyle(fontSize: 15,color: Theme.of(context).primaryColor,fontWeight: FontWeight.w700),),
-          ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text("公告",style: TextStyle(fontSize: 15,color: GlobalConfig.colorPrimary,fontWeight: FontWeight.bold),),
         ),
+        Container(width:2,height: 20,child: VerticalDivider(color: Colors.grey)),
         Expanded(
           flex: 1,
           child: Container(
-            height: 30.0,
-            child: Text("信息发布",style: TextStyle(fontSize: 15,color: GlobalConfig.color_font),),
+            padding: EdgeInsets.only(left: 10, right: 10,),
+            alignment: Alignment.centerLeft,
+            height:30,
+            child: Text("信息发布",style: TextStyle(fontSize: 15,color: GlobalConfig.colorFont),),
           ),
         ),
       ],

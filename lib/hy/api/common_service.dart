@@ -1,13 +1,20 @@
 
+import 'package:flutter_learn/generated/json/event_level_number_entity_helper.dart';
 import 'package:flutter_learn/generated/json/logout_entity_helper.dart';
 import 'package:flutter_learn/generated/json/server_set_entity_helper.dart';
 import 'package:flutter_learn/generated/json/login_entity_helper.dart';
 import 'package:flutter_learn/generated/json/relation_entity_helper.dart';
+import 'package:flutter_learn/generated/json/alarm_entity_helper.dart';
+import 'package:flutter_learn/generated/json/event_level_entity_helper.dart';
 import 'package:flutter_learn/hy/api/api.dart';
+import 'package:flutter_learn/hy/model/alarm_entity.dart';
+import 'package:flutter_learn/hy/model/event_level_entity.dart';
+import 'package:flutter_learn/hy/model/event_level_number_entity.dart';
 import 'package:flutter_learn/hy/model/login_entity.dart';
 import 'package:flutter_learn/hy/model/logout_entity.dart';
 import 'package:flutter_learn/hy/model/relation_entity.dart';
 import 'package:flutter_learn/hy/model/server_set_entity.dart';
+
 import 'package:flutter_learn/hy/utils/util.dart';
 import 'api_request.dart';
 
@@ -21,7 +28,7 @@ class CommonService {
   /// 地址配置
   static Future<ServerSetEntity> serverRequest(String ip, String port,
       {Function(ServerSetEntity t) onSuccess,
-      Function(String error) onError}) async {
+        Function(String error) onError}) async {
     ApiRequest.setBaseUrl(ip, port);
 
     final url = Api.URL_SET_GATEWAY;
@@ -138,8 +145,8 @@ class CommonService {
     var webUrl="";
     if (relationEntity.isSuccess) {
       var entity=relationEntity.data.aCs[0].v[0];
-      webUrl = "http://${entity.destIp}:${entity.destPort}${entity.destUrl}&pageName=${entity.destProviderFc}&data={}&tokenId=$token";
-      //onSuccess(webUrl);
+      webUrl = "http://${entity.destIp}:${entity.destPort}${entity.destUrl}&pageName=${entity.destProviderFc}&tokenId=$token";
+      onSuccess(webUrl);
       return webUrl;
     }else {
       onError(relationEntity.exceptionMsg);
@@ -149,7 +156,7 @@ class CommonService {
 
 
   static Future<LogoutEntity> logout({Function(LogoutEntity t) onSuccess,
-        Function(String error) onError}) async {
+    Function(String error) onError}) async {
 
     Map<String, dynamic> map = {
       "tokenId": token,
@@ -186,6 +193,183 @@ class CommonService {
     return logoutEntity;
   }
 
+  //报警
+  static Future<AlarmEntity> getAlarmList({Function(AlarmEntity t) onSuccess,
+    Function(String error) onError}) async {
 
+    Map<String, dynamic> map = {
+      "tokenId": token,
+    };
+
+    Map<String, dynamic> p1 = {
+      "F": "p1",
+      "N": "Int32",
+      "V": "0",
+      "Op": "0",
+    };
+    Map<String, dynamic> p2 = {
+      "F": "p2",
+      "N": "Int32",
+      "V": "20",
+      "Op": "0",
+    };
+
+    Map<String, dynamic> data = {
+      "SrcID": "3b3754f1546d5d4a",
+      "DestID": destID,
+      "SN": uuid,
+      "User": user,
+      "FC": Api.FC_EVENT_GET_PART_EVENTLIST_0001,
+      "Ack": "0",
+      "Exp": "p1",
+      "Dep": "",
+      "Ord":"",
+      "ACs": [p1,p2],
+    };
+
+    var response = await ApiRequest.request(Api.URL_GET_ALARM_LIST, method: "POST", data: data);
+    AlarmEntity alarmEntity = AlarmEntity();
+    alarmEntityFromJson(alarmEntity, response);
+    if (alarmEntity.isSuccess) {
+      onSuccess(alarmEntity);
+    }else {
+      onError(alarmEntity.exceptionMsg);
+    }
+    return alarmEntity;
+  }
+
+  //报警事件等级
+  static Future<EventLevelEntity> alarmRuleInfoArray({Function(EventLevelEntity t) onSuccess,
+    Function(String error) onError}) async {
+
+    Map<String, dynamic> map = {
+      "tokenId": token,
+    };
+
+    Map<String, dynamic> p1 = {
+      "F": "p1",
+      "N": "",
+      "V": {
+        "FormId":"event_AlarmRuleInfo",
+        "Type":"0"
+      },
+      "Op": "0",
+    };
+
+    Map<String, dynamic> data = {
+      "SrcID": "3b3754f1546d5d4a",
+      "DestID": destID,
+      "SN": uuid,
+      "User": user,
+      "FC": Api.FC_XT_GET_CFGDATA_0001,
+      "Ack": "0",
+      "Exp": "",
+      "Dep": "",
+      "Ord":"",
+      "ACs": [p1],
+    };
+
+    var response = await ApiRequest.request(Api.URL_GET_ALARM_RULE_INFO, params:data,);
+    EventLevelEntity eventLevelEntity = EventLevelEntity();
+    eventLevelEntityFromJson(eventLevelEntity, response);
+    if (eventLevelEntity.isSuccess) {
+      onSuccess(eventLevelEntity);
+    }else {
+      onError(eventLevelEntity.exceptionMsg);
+    }
+    return eventLevelEntity;
+  }
+
+
+  //报警各等级数量
+  static Future<EventLevelNumberEntity>alarmLevelNumber(List<Map> eventLevels, {Function(EventLevelNumberEntity t) onSuccess,
+    Function(String error) onError}) async {
+
+    Map<String, dynamic> map = {
+      "tokenId": token,
+    };
+
+    Map<String, dynamic> p1 = {
+      "F": "p1",
+      "N": "EventQuery",
+      "V": eventLevels,
+      "Op": "0",
+    };
+
+    Map<String, dynamic> data = {
+      "SrcID": "3b3754f1546d5d4a",
+      "DestID": destID,
+      "SN": uuid,
+      "User": user,
+      "FC": Api.FC_EVENT_GET_EVENTCOUNT_0001,
+      "Ack": "0",
+      "Exp": "",
+      "Dep": "",
+      "Ord":"",
+      "ACs": [p1],
+    };
+
+    var response = await ApiRequest.request(Api.URL_GET_ALARM_EVENTCOUNT, method:'POST', data:data,);
+    EventLevelNumberEntity eventLevelNumberEntity = EventLevelNumberEntity();
+    eventLevelNumberEntityFromJson(eventLevelNumberEntity, response);
+    if (eventLevelNumberEntity.isSuccess) {
+      onSuccess(eventLevelNumberEntity);
+    }else {
+      onError(eventLevelNumberEntity.exceptionMsg);
+    }
+    return eventLevelNumberEntity;
+  }
+
+  //报警各等级数量
+  static Future<AlarmEntity>someLevelAlarmData(Map eventLevel, {Function(AlarmEntity t) onSuccess,
+    Function(String error) onError}) async {
+
+    Map<String, dynamic> map = {
+      "tokenId": token,
+    };
+
+    Map<String, dynamic> p1 = {
+      "F": "p1",
+      "N": "Int32",
+      "V": "0",
+      "Op": "0",
+    };
+    Map<String, dynamic> p2 = {
+      "F": "p2",
+      "N": "Int32",
+      "V": "20",
+      "Op": "0",
+    };
+
+    Map<String, dynamic> p3 = {
+      "F": "p3",
+      "N": "EventQuery",
+      "V": eventLevel,
+      "Op": "0",
+    };
+
+    Map<String, dynamic> data = {
+      "SrcID": "3b3754f1546d5d4a",
+      "DestID": destID,
+      "SN": uuid,
+      "User": user,
+      "FC": Api.FC_EVENT_GET_PART_EVENTLIST,
+      "Ack": "0",
+      "Exp": "",
+      "Dep": "",
+      "Ord":"",
+      "ACs": [p1,p2,p3],
+    };
+
+    var response = await ApiRequest.request(Api.URL_GET_ALARM_PART_EVENTLIST, method:'POST', data:data,);
+    AlarmEntity alarmEntity = AlarmEntity();
+    alarmEntityFromJson(alarmEntity, response);
+    if (alarmEntity.isSuccess) {
+      onSuccess(alarmEntity);
+    }else {
+      onError(alarmEntity.exceptionMsg);
+    }
+    return alarmEntity;
+  }
 
 }

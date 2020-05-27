@@ -9,7 +9,7 @@ class ScreenUtil {
   static double statusHeight;
 
   static double rpx;
-  static double px;
+  static double mPx;
 
   static void initialize({double standardSize = 750}) {
     // 1.手机的物理分辨率
@@ -30,7 +30,7 @@ class ScreenUtil {
 
     // 5.计算rpx的大小
     rpx = screenWidth / standardSize;
-    px = screenWidth / standardSize * 2;
+    mPx = screenWidth / standardSize * 2;
   }
 
   static double setRpx(double size) {
@@ -38,6 +38,10 @@ class ScreenUtil {
   }
 
   static double setPx(double size) {
-    return px * size;
+    return mPx * size;
+  }
+
+  static px(int size) {
+    return mPx * size;
   }
 }

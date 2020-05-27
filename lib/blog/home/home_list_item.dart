@@ -1,4 +1,4 @@
-import 'package:flutter_learn/model/home_entity.dart';
+import 'package:flutter_learn/blog/model/home_entity.dart';
 import 'package:flutter/material.dart';
 
 class HomeListItem extends StatelessWidget {

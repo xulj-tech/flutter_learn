@@ -1,4 +1,4 @@
-import 'package:flutter_learn/utils/size_extension.dart';
+import 'package:flutter_learn/hy/utils/size_fit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -10,8 +10,8 @@ class BannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 750.px,
-      height: 240.px,
+      width: ScreenUtil.px(750),
+      height: ScreenUtil.px(240),
       child: Swiper(
         scrollDirection: Axis.horizontal,
         // 横向

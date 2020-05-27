@@ -5,7 +5,7 @@ import 'package:flutter_learn/hy/pages/server_set_page.dart';
 import 'package:flutter_learn/hy/utils/sp_util.dart';
 import 'package:flutter_learn/hy/utils/util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn/utils/size_extension.dart';
+import 'package:flutter_learn/hy/utils/size_fit.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = "/loginPage";
@@ -24,11 +24,11 @@ class _LoginPageState extends State<LoginPage> {
           Image.asset(
             Util.getImgPath("login_bg"),
             width: double.infinity,
-            height: 300.px,
+            height: ScreenUtil.px(300),
             fit: BoxFit.cover,
           ),
           SizedBox(
-            height: 30.px,
+            height: ScreenUtil.px(30),
           ),
           LoginContent(),
         ],
@@ -85,7 +85,7 @@ class _LoginContentState extends State<LoginContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15.px),
+      padding: EdgeInsets.all(ScreenUtil.px(15)),
       child: Form(
         key: _formKey,
         child: new Column(
@@ -93,7 +93,7 @@ class _LoginContentState extends State<LoginContent> {
           children: <Widget>[
             userNameText(),
             SizedBox(
-              height: 20.px,
+              height: ScreenUtil.px(20),
             ),
             passwordText(),
             bottomArea(),
@@ -108,7 +108,7 @@ class _LoginContentState extends State<LoginContent> {
     return TextFormField(
       controller: _userNameController,
       //设置键盘类型
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: "请输入用户名",
         prefixIcon: Icon(Icons.person),

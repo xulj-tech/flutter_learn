@@ -57,7 +57,7 @@ class Util {
               child: new Text("确定"),
               onPressed: () {
                 CommonService.logout(onSuccess: (value){
-                  Navigator.of(context).pop();
+                  Navigator.popUntil(context,  ModalRoute.withName('/'));
                 }, onError: (error){
                   showToast(error);
                 }
@@ -121,4 +121,17 @@ class Util {
       return Future.error(e);
     }
   }
+
+  static Widget getAppBar(BuildContext context,String title){
+    return AppBar(
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          }),
+      centerTitle: true,
+      title: Text(title),
+    );
+  }
+
 }

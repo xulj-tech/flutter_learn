@@ -2,7 +2,9 @@ import 'package:flutter_learn/hy/api/common_service.dart';
 import 'package:flutter_learn/hy/utils/sp_util.dart';
 import 'package:flutter_learn/hy/utils/util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn/utils/size_extension.dart';
+import 'package:flutter_learn/hy/utils/size_fit.dart';
+
+import '../utils/util.dart';
 
 class ServerSet extends StatelessWidget{
   static const routeName="/serverSet";
@@ -10,15 +12,7 @@ class ServerSet extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
-        centerTitle: true,
-        title: Text("地址配置"),
-      ),
+      appBar: Util.getAppBar(context, "地址配置"),
       body: ServerSetContent(),
     );
   }
@@ -77,7 +71,7 @@ class _ServerSetContentState extends State<ServerSetContent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15.px),
+      padding: EdgeInsets.all(ScreenUtil.px(15)),
       child: Form(
         key: _formKey,
         child: Column(
@@ -94,7 +88,7 @@ class _ServerSetContentState extends State<ServerSetContent> {
   Widget ipTextFormField() {
     return TextFormField(
       controller: _ipController,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: "192.168.0.1",
         labelText: "IP地址:",

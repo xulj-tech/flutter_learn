@@ -1,20 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn/hy/api/api.dart';
 import 'package:flutter_learn/hy/api/common_service.dart';
+import 'package:flutter_learn/hy/utils/util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatelessWidget {
-  static const routeName="/webViewPage";
+class CommonWebViewPage extends StatelessWidget {
+  static const routeName="/commonWebViewPage";
+
+  final String _title;
+  final String _code;
+
+  CommonWebViewPage(this._title,this._code);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: MyWebViewPage(),
+      appBar: Util.getAppBar(context, _title),
+      body: MyWebViewPage(_code),
     );
   }
 }
 
 class MyWebViewPage extends StatefulWidget {
+
+  final String code;
+  MyWebViewPage(this.code);
+
   @override
   _MyWebViewPageState createState() => _MyWebViewPageState();
 }
@@ -24,9 +35,10 @@ class _MyWebViewPageState extends State<MyWebViewPage> {
   @override
   void initState() {
     super.initState();
-    CommonService.getWebUrl(Api.FC_WEB_GZLC_RK_0001,onSuccess: (value){
+    CommonService.getWebUrl(widget.code,onSuccess: (value){
       setState(() {
         url=value;
+        print(url);
       });
     });
   }
@@ -44,19 +56,10 @@ class _MyWebViewPageState extends State<MyWebViewPage> {
     }
     return Column(
       children: <Widget>[
-        Container(height:20, color: Theme.of(context).primaryColor,),
         Expanded(
           child: WebView(
             initialUrl: url,
             javascriptMode: JavascriptMode.unrestricted,
-            javascriptChannels: <JavascriptChannel>[
-              JavascriptChannel(
-                  name: 'JSMessage',
-                  onMessageReceived: (JavascriptMessage message) {
-                    print("参数： ${message.message}");
-                  }
-              ),
-            ].toSet(),
           ),
         ),
       ],

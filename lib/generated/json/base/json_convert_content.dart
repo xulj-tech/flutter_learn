@@ -7,13 +7,19 @@ import 'package:flutter_learn/hy/model/login_entity.dart';
 import 'package:flutter_learn/generated/json/login_entity_helper.dart';
 import 'package:flutter_learn/hy/model/relation_entity.dart';
 import 'package:flutter_learn/generated/json/relation_entity_helper.dart';
+import 'package:flutter_learn/hy/model/event_level_number_entity.dart';
+import 'package:flutter_learn/generated/json/event_level_number_entity_helper.dart';
+import 'package:flutter_learn/hy/model/alarm_entity.dart';
+import 'package:flutter_learn/generated/json/alarm_entity_helper.dart';
 import 'package:flutter_learn/hy/model/logout_entity.dart';
 import 'package:flutter_learn/generated/json/logout_entity_helper.dart';
 import 'package:flutter_learn/hy/model/server_set_entity.dart';
 import 'package:flutter_learn/generated/json/server_set_entity_helper.dart';
-import 'package:flutter_learn/model/home_entity.dart';
+import 'package:flutter_learn/blog/model/home_entity.dart';
 import 'package:flutter_learn/generated/json/home_entity_helper.dart';
-import 'package:flutter_learn/model/banner_entity.dart';
+import 'package:flutter_learn/hy/model/event_level_entity.dart';
+import 'package:flutter_learn/generated/json/event_level_entity_helper.dart';
+import 'package:flutter_learn/blog/model/banner_entity.dart';
 import 'package:flutter_learn/generated/json/banner_entity_helper.dart';
 
 class JsonConvert<T> {
@@ -34,7 +40,20 @@ class JsonConvert<T> {
 			return relationEntityFromJson(data as RelationEntity, json) as T;			case RelationData:
 			return relationDataFromJson(data as RelationData, json) as T;			case RelationDataAC:
 			return relationDataACFromJson(data as RelationDataAC, json) as T;			case RelationDataACsV:
-			return relationDataACsVFromJson(data as RelationDataACsV, json) as T;			case LogoutEntity:
+			return relationDataACsVFromJson(data as RelationDataACsV, json) as T;			case EventLevelNumberEntity:
+			return eventLevelNumberEntityFromJson(data as EventLevelNumberEntity, json) as T;			case EventLevelNumberData:
+			return eventLevelNumberDataFromJson(data as EventLevelNumberData, json) as T;			case EventLevelNumberDataAC:
+			return eventLevelNumberDataACFromJson(data as EventLevelNumberDataAC, json) as T;			case EventLevelNumberDataACsV:
+			return eventLevelNumberDataACsVFromJson(data as EventLevelNumberDataACsV, json) as T;			case AlarmEntity:
+			return alarmEntityFromJson(data as AlarmEntity, json) as T;			case AlarmData:
+			return alarmDataFromJson(data as AlarmData, json) as T;			case AlarmDataAC:
+			return alarmDataACFromJson(data as AlarmDataAC, json) as T;			case AlarmDataACsV:
+			return alarmDataACsVFromJson(data as AlarmDataACsV, json) as T;			case AlarmDataACsVAction:
+			return alarmDataACsVActionFromJson(data as AlarmDataACsVAction, json) as T;			case AlarmDataACsVOriginalEvent:
+			return alarmDataACsVOriginalEventFromJson(data as AlarmDataACsVOriginalEvent, json) as T;			case AlarmDataACsVOriginalEventListEventSource:
+			return alarmDataACsVOriginalEventListEventSourceFromJson(data as AlarmDataACsVOriginalEventListEventSource, json) as T;			case AlarmDataACsVOriginalEventListEventSourceIntactInfo:
+			return alarmDataACsVOriginalEventListEventSourceIntactInfoFromJson(data as AlarmDataACsVOriginalEventListEventSourceIntactInfo, json) as T;			case AlarmDataACsVOriginalEventAssociatedDevice:
+			return alarmDataACsVOriginalEventAssociatedDeviceFromJson(data as AlarmDataACsVOriginalEventAssociatedDevice, json) as T;			case LogoutEntity:
 			return logoutEntityFromJson(data as LogoutEntity, json) as T;			case LogoutData:
 			return logoutDataFromJson(data as LogoutData, json) as T;			case LogoutDataAC:
 			return logoutDataACFromJson(data as LogoutDataAC, json) as T;			case LogoutDataACsV:
@@ -45,7 +64,9 @@ class JsonConvert<T> {
 			return serverSetDataACsVFromJson(data as ServerSetDataACsV, json) as T;			case HomeEntity:
 			return homeEntityFromJson(data as HomeEntity, json) as T;			case HomeData:
 			return homeDataFromJson(data as HomeData, json) as T;			case HomeDataData:
-			return homeDataDataFromJson(data as HomeDataData, json) as T;			case BannerEntity:
+			return homeDataDataFromJson(data as HomeDataData, json) as T;			case EventLevelEntity:
+			return eventLevelEntityFromJson(data as EventLevelEntity, json) as T;			case EventLevelData:
+			return eventLevelDataFromJson(data as EventLevelData, json) as T;			case BannerEntity:
 			return bannerEntityFromJson(data as BannerEntity, json) as T;			case BannerData:
 			return bannerDataFromJson(data as BannerData, json) as T;    }
     return data as T;
@@ -60,7 +81,20 @@ class JsonConvert<T> {
 			return relationEntityToJson(data as RelationEntity);			case RelationData:
 			return relationDataToJson(data as RelationData);			case RelationDataAC:
 			return relationDataACToJson(data as RelationDataAC);			case RelationDataACsV:
-			return relationDataACsVToJson(data as RelationDataACsV);			case LogoutEntity:
+			return relationDataACsVToJson(data as RelationDataACsV);			case EventLevelNumberEntity:
+			return eventLevelNumberEntityToJson(data as EventLevelNumberEntity);			case EventLevelNumberData:
+			return eventLevelNumberDataToJson(data as EventLevelNumberData);			case EventLevelNumberDataAC:
+			return eventLevelNumberDataACToJson(data as EventLevelNumberDataAC);			case EventLevelNumberDataACsV:
+			return eventLevelNumberDataACsVToJson(data as EventLevelNumberDataACsV);			case AlarmEntity:
+			return alarmEntityToJson(data as AlarmEntity);			case AlarmData:
+			return alarmDataToJson(data as AlarmData);			case AlarmDataAC:
+			return alarmDataACToJson(data as AlarmDataAC);			case AlarmDataACsV:
+			return alarmDataACsVToJson(data as AlarmDataACsV);			case AlarmDataACsVAction:
+			return alarmDataACsVActionToJson(data as AlarmDataACsVAction);			case AlarmDataACsVOriginalEvent:
+			return alarmDataACsVOriginalEventToJson(data as AlarmDataACsVOriginalEvent);			case AlarmDataACsVOriginalEventListEventSource:
+			return alarmDataACsVOriginalEventListEventSourceToJson(data as AlarmDataACsVOriginalEventListEventSource);			case AlarmDataACsVOriginalEventListEventSourceIntactInfo:
+			return alarmDataACsVOriginalEventListEventSourceIntactInfoToJson(data as AlarmDataACsVOriginalEventListEventSourceIntactInfo);			case AlarmDataACsVOriginalEventAssociatedDevice:
+			return alarmDataACsVOriginalEventAssociatedDeviceToJson(data as AlarmDataACsVOriginalEventAssociatedDevice);			case LogoutEntity:
 			return logoutEntityToJson(data as LogoutEntity);			case LogoutData:
 			return logoutDataToJson(data as LogoutData);			case LogoutDataAC:
 			return logoutDataACToJson(data as LogoutDataAC);			case LogoutDataACsV:
@@ -71,7 +105,9 @@ class JsonConvert<T> {
 			return serverSetDataACsVToJson(data as ServerSetDataACsV);			case HomeEntity:
 			return homeEntityToJson(data as HomeEntity);			case HomeData:
 			return homeDataToJson(data as HomeData);			case HomeDataData:
-			return homeDataDataToJson(data as HomeDataData);			case BannerEntity:
+			return homeDataDataToJson(data as HomeDataData);			case EventLevelEntity:
+			return eventLevelEntityToJson(data as EventLevelEntity);			case EventLevelData:
+			return eventLevelDataToJson(data as EventLevelData);			case BannerEntity:
 			return bannerEntityToJson(data as BannerEntity);			case BannerData:
 			return bannerDataToJson(data as BannerData);    }
     return data as T;
@@ -86,7 +122,20 @@ class JsonConvert<T> {
 			return RelationEntity().fromJson(json);			case 'RelationData':
 			return RelationData().fromJson(json);			case 'RelationDataAC':
 			return RelationDataAC().fromJson(json);			case 'RelationDataACsV':
-			return RelationDataACsV().fromJson(json);			case 'LogoutEntity':
+			return RelationDataACsV().fromJson(json);			case 'EventLevelNumberEntity':
+			return EventLevelNumberEntity().fromJson(json);			case 'EventLevelNumberData':
+			return EventLevelNumberData().fromJson(json);			case 'EventLevelNumberDataAC':
+			return EventLevelNumberDataAC().fromJson(json);			case 'EventLevelNumberDataACsV':
+			return EventLevelNumberDataACsV().fromJson(json);			case 'AlarmEntity':
+			return AlarmEntity().fromJson(json);			case 'AlarmData':
+			return AlarmData().fromJson(json);			case 'AlarmDataAC':
+			return AlarmDataAC().fromJson(json);			case 'AlarmDataACsV':
+			return AlarmDataACsV().fromJson(json);			case 'AlarmDataACsVAction':
+			return AlarmDataACsVAction().fromJson(json);			case 'AlarmDataACsVOriginalEvent':
+			return AlarmDataACsVOriginalEvent().fromJson(json);			case 'AlarmDataACsVOriginalEventListEventSource':
+			return AlarmDataACsVOriginalEventListEventSource().fromJson(json);			case 'AlarmDataACsVOriginalEventListEventSourceIntactInfo':
+			return AlarmDataACsVOriginalEventListEventSourceIntactInfo().fromJson(json);			case 'AlarmDataACsVOriginalEventAssociatedDevice':
+			return AlarmDataACsVOriginalEventAssociatedDevice().fromJson(json);			case 'LogoutEntity':
 			return LogoutEntity().fromJson(json);			case 'LogoutData':
 			return LogoutData().fromJson(json);			case 'LogoutDataAC':
 			return LogoutDataAC().fromJson(json);			case 'LogoutDataACsV':
@@ -97,7 +146,9 @@ class JsonConvert<T> {
 			return ServerSetDataACsV().fromJson(json);			case 'HomeEntity':
 			return HomeEntity().fromJson(json);			case 'HomeData':
 			return HomeData().fromJson(json);			case 'HomeDataData':
-			return HomeDataData().fromJson(json);			case 'BannerEntity':
+			return HomeDataData().fromJson(json);			case 'EventLevelEntity':
+			return EventLevelEntity().fromJson(json);			case 'EventLevelData':
+			return EventLevelData().fromJson(json);			case 'BannerEntity':
 			return BannerEntity().fromJson(json);			case 'BannerData':
 			return BannerData().fromJson(json);    }
     return null;
@@ -113,7 +164,20 @@ class JsonConvert<T> {
 			return List<RelationEntity>();			case 'RelationData':
 			return List<RelationData>();			case 'RelationDataAC':
 			return List<RelationDataAC>();			case 'RelationDataACsV':
-			return List<RelationDataACsV>();			case 'LogoutEntity':
+			return List<RelationDataACsV>();			case 'EventLevelNumberEntity':
+			return List<EventLevelNumberEntity>();			case 'EventLevelNumberData':
+			return List<EventLevelNumberData>();			case 'EventLevelNumberDataAC':
+			return List<EventLevelNumberDataAC>();			case 'EventLevelNumberDataACsV':
+			return List<EventLevelNumberDataACsV>();			case 'AlarmEntity':
+			return List<AlarmEntity>();			case 'AlarmData':
+			return List<AlarmData>();			case 'AlarmDataAC':
+			return List<AlarmDataAC>();			case 'AlarmDataACsV':
+			return List<AlarmDataACsV>();			case 'AlarmDataACsVAction':
+			return List<AlarmDataACsVAction>();			case 'AlarmDataACsVOriginalEvent':
+			return List<AlarmDataACsVOriginalEvent>();			case 'AlarmDataACsVOriginalEventListEventSource':
+			return List<AlarmDataACsVOriginalEventListEventSource>();			case 'AlarmDataACsVOriginalEventListEventSourceIntactInfo':
+			return List<AlarmDataACsVOriginalEventListEventSourceIntactInfo>();			case 'AlarmDataACsVOriginalEventAssociatedDevice':
+			return List<AlarmDataACsVOriginalEventAssociatedDevice>();			case 'LogoutEntity':
 			return List<LogoutEntity>();			case 'LogoutData':
 			return List<LogoutData>();			case 'LogoutDataAC':
 			return List<LogoutDataAC>();			case 'LogoutDataACsV':
@@ -124,7 +188,9 @@ class JsonConvert<T> {
 			return List<ServerSetDataACsV>();			case 'HomeEntity':
 			return List<HomeEntity>();			case 'HomeData':
 			return List<HomeData>();			case 'HomeDataData':
-			return List<HomeDataData>();			case 'BannerEntity':
+			return List<HomeDataData>();			case 'EventLevelEntity':
+			return List<EventLevelEntity>();			case 'EventLevelData':
+			return List<EventLevelData>();			case 'BannerEntity':
 			return List<BannerEntity>();			case 'BannerData':
 			return List<BannerData>();    }
     return null;

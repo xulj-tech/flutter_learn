@@ -1,4 +1,4 @@
-import 'package:flutter_learn/model/home_entity.dart';
+import 'package:flutter_learn/blog/model/home_entity.dart';
 
 homeEntityFromJson(HomeEntity data, Map<String, dynamic> json) {
 	if (json['data'] != null) {

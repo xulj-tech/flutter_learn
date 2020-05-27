@@ -1,8 +1,8 @@
 
 import 'package:flutter_learn/generated/json/banner_entity_helper.dart';
 import 'package:flutter_learn/generated/json/home_entity_helper.dart';
-import 'package:flutter_learn/model/banner_entity.dart';
-import 'package:flutter_learn/model/home_entity.dart';
+import 'package:flutter_learn/blog/model/banner_entity.dart';
+import 'package:flutter_learn/blog/model/home_entity.dart';
 import 'http_request.dart';
 
 class HomeRequest {
