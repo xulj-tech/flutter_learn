@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_learn/blog/model/home_entity.dart';
 import 'package:flutter_learn/blog/home/home_list_item.dart';
 import 'package:flutter_learn/blog/home/swiper_widget.dart';
@@ -12,9 +13,12 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text("首页"),
         ),
-        body: Stack(
+        body: Column(
           children: <Widget>[
-            HomePageContent(),
+            BannerContent(),
+            Expanded(
+              child:HomePageContent(),
+            ),
           ],
         ));
   }
@@ -55,11 +59,36 @@ class HomePageContent extends StatefulWidget {
 
 class _HomePageContentState extends State<HomePageContent> {
   final List<HomeDataData> homeDataList = [];
-
+  var pageIndex=1;
   @override
   void initState() {
     super.initState();
-    HomeRequest.requestHomeList(0).then((HomeEntity entity) {
+    getData(pageIndex);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyRefresh(
+      child: ListView.builder(
+        itemCount: homeDataList.length,
+        itemBuilder: (ctx, index) {
+          return HomeListItem(homeDataList[index]);
+        },
+      ),
+      onRefresh: () async {
+        pageIndex=1;
+        homeDataList.clear();
+        getData(pageIndex);
+      },
+      onLoad: () async {
+        pageIndex++;
+        getData(pageIndex);
+      },
+    );
+  }
+
+  getData(index){
+    HomeRequest.requestHomeList(index).then((HomeEntity entity) {
       setState(() {
         if (entity.errorCode == 0) {
           homeDataList.addAll(entity.data.datas);
@@ -68,17 +97,4 @@ class _HomePageContentState extends State<HomePageContent> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: homeDataList.length,
-      itemBuilder: (ctx, index) {
-        if (index == 0) {
-          return BannerContent();
-        } else {
-          return HomeListItem(homeDataList[index]);
-        }
-      },
-    );
-  }
 }

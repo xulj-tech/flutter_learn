@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_content.dart';
+import 'wechat_page.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //页面list
 List<Widget> pages = [
   HomePage(),
-  HomePage(),
+  WeChatPage(),
   HomePage(),
   HomePage(),
   HomePage(),
