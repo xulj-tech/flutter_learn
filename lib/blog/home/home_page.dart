@@ -55,7 +55,7 @@ List<MyBottomBarItem> items = [
 class MyBottomBarItem extends BottomNavigationBarItem {
   MyBottomBarItem(String iconName, String title)
       : super(
-          title: Text(title),
+          label: title,
           icon: Image.asset("assets/images/tabbar/$iconName.png",
               width: 25, gaplessPlayback: true),
           activeIcon: Image.asset("assets/images/tabbar/${iconName}_active.png",
